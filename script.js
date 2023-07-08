@@ -14,12 +14,12 @@ function findLongestDistance(blocks) {
     right++;
   }
 
-  return maxDistance - 1; // Subtract 1 to exclude the starting block
+  return maxDistance - 1;
 }
 
 function longestFrogDistance(blocks) {
   const firstFrogDistance = findLongestDistance(blocks);
-  const reversedBlocks = blocks.slice().reverse(); // Reverse the array
+  const reversedBlocks = blocks.slice().reverse();
   const secondFrogDistance = findLongestDistance(reversedBlocks);
 
   return Math.max(firstFrogDistance, secondFrogDistance);
