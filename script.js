@@ -1,24 +1,30 @@
-const blocks = [3, 1, 4, 5, 9, 2, 6, 8];
-const distance = longestDistance(blocks);
-
-function longestDistance(blocks) {
+function findLongestDistance(blocks) {
+  let left = 0;
+  let right = 0;
   let maxDistance = 0;
 
-  for (let i = 0; i < blocks.length; i++) {
-    let currentDistance = 1;
-
-    for (let j = i + 1; j < blocks.length; j++) {
-      if (blocks[j] >= blocks[i] && currentDistance < j - i + 1) {
-        currentDistance = j - i + 1;
-      }
+  while (right < blocks.length) {
+    if (blocks[right] >= blocks[left]) {
+      const distance = right - left + 1;
+      maxDistance = Math.max(maxDistance, distance);
+    } else {
+      left = right;
     }
 
-    if (maxDistance < currentDistance) {
-      maxDistance = currentDistance;
-    }
+    right++;
   }
 
-  return maxDistance;
+  return maxDistance - 1; // Subtract 1 to exclude the starting block
 }
 
-console.log("Longest distance between frogs:", distance);
+function longestFrogDistance(blocks) {
+  const firstFrogDistance = findLongestDistance(blocks);
+  const reversedBlocks = blocks.slice().reverse(); // Reverse the array
+  const secondFrogDistance = findLongestDistance(reversedBlocks);
+
+  return Math.max(firstFrogDistance, secondFrogDistance);
+}
+
+const blocks = [2, 6, 8, 5];
+const longestDistance = longestFrogDistance(blocks);
+console.log("Longest distance between the two frogs:", longestDistance);
